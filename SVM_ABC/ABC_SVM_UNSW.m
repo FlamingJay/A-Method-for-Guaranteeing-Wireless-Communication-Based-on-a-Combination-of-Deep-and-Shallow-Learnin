@@ -5,8 +5,8 @@ clear
 clc
 format compact
 
-load train_10.mat
-load train_attack_label_10.mat
+load ae_train.mat
+load train_label.mat
 
 
 %% %%%%%%%%%%%%%用ABC算法优化SVM中的参数c和g开始%%%%%%%%%%%%%%%%%%%%
@@ -166,10 +166,8 @@ end % 一次ABC算法完结
 end % end of runs
 
 fprintf('\n*******************end of test********************\n');
-load test_10.mat
-load test_attack_label_10.mat
-load whole_total_train.mat
-load whole_total_train_label.mat
+load ae_test.mat
+load test_label.mat
 %% %%%%%%%%%%%%%用ABC算法优化SVM中的参数c和g结束%%%%%%%%%%%%%%%%%%%%
 %% 打印参数选择结果，这里输出的是最后一次ABC算法寻优得到的参数
 bestc=GlobalParams(1);
@@ -180,12 +178,12 @@ str=sprintf('Best c = %g，Best g = %g',bestc,bestg);
 disp(str)
 %% 利用最佳的参数进行SVM网络训练
 cmd_gwosvm = ['-c ',num2str(bestc),' -g ',num2str(bestg)];
-model_gwosvm = libsvmtrain(total_train_label,feature_train,cmd_gwosvm);
+model_gwosvm = libsvmtrain(train_label,encoded_train,cmd_gwosvm);
 %% SVM网络预测
-[predict_label,accuracy,~] = libsvmpredict(test_attack_label,feature_test,model_gwosvm);
+[predict_label,accuracy,~] = libsvmpredict(test_label,encoded_test,model_gwosvm);
 % 打印测试集分类准确率
-total = length(test_attack_label);
-right = sum(predict_label == test_attack_label);
+total = length(test_label);
+right = sum(predict_label == test_label);
 disp('打印测试集分类准确率');
 str = sprintf( '\nAccuracy = %g%% (%d/%d)',accuracy(1),right,total);
 disp(str);
@@ -193,7 +191,7 @@ disp(str);
 % 测试集的实际分类和预测分类图
 figure(1);
 hold on;
-plot(test_attack_label,'o');
+plot(test_label,'o');
 plot(predict_label,'r*');
 xlabel('测试集样本','FontSize',12);
 ylabel('类别标签','FontSize',12);
