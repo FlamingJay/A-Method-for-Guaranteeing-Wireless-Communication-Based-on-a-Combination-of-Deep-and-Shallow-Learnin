@@ -19,3 +19,7 @@ The PCA method is adopted as the baseline for featrue extraction. So some experi
 
 Based on above, the corresponding of reduced dimension is selected and the experiment result on the autoencoder is shown below. 
 ![image](https://github.com/FlamingJay/A-Method-for-Guaranteeing-Wireless-Communication-Based-on-a-Combination-of-Deep-and-Shallow-Learnin/blob/master/figure/%E5%87%86%E7%A1%AE%E7%8E%87%E5%92%8C%E8%99%9A%E8%AD%A6%E7%8E%87%E5%AF%B9%E6%AF%94.png)
+
+if this paper does good for you, please cite:
+
+Tian, Qiao, Jingmei Li, and Haibo Liu. "A method for guaranteeing wireless communication based on a combination of deep and shallow learning." IEEE Access 7 (2019): 38688-38695.
